@@ -12,7 +12,11 @@ module.exports = {
   entry: path.join(__dirname, 'src/main.js'),
   output: {
     path: path.resolve("build"),
-    filename: 'bundle[contenthash].js'
+    filename: 'bundle[contenthash].js',
+    // publicPath: '/'
+  },
+  resolveLoader: {
+    modules: [path.join(__dirname, 'vues-loader')],
   },
   mode: 'development',
   devtool: 'eval-cheap-source-map',
@@ -21,15 +25,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-        },
-        exclude: /node_modules/
+        loader: 'vues-loader'
       },
       {
         test: /\.css$/,
@@ -43,6 +39,10 @@ module.exports = {
         type: 'asset/resource',
       }
     ]
+  },
+  devServer: {
+    open: true,
+    hot: true,
   },
   optimization: {
     splitChunks: {
@@ -89,16 +89,11 @@ module.exports = {
       filename: 'index.html',
       title: 'Webpack5 + Vue3 Demo'
     }),
-    new VueLoaderPlugin(),
+    // new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     new OptimizeCssAssetsPlugin(),
     new MiniCssExtractPlugin({
       filename: 'bundle[contenthash].css'
     })
   ],
-
-  devServer: {
-    open: true,
-    hot: true,
-  }
 }

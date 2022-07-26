@@ -1,17 +1,26 @@
 <template>
   <div class="app">
     <h1 class="hhh">Hello World</h1>
-    <p>This is a simple example of a Vue.js component.</p>
+    <p @click="aaa">This is a simple example of a Vue.js component.</p>
+    <span @click="change">{{ x + 1000000 }}</span>
+    <span @click="change">{{ x }}</span>
   </div>
 </template>
 
-<script setup>
-  import {ref} from 'vue'
-  console.log(ref);
-</script>
-
-<style>
-  .hhh{
-    color: red;
+<script>
+  export default {
+    data(){
+      return {
+        x:12321
+      }
+    },
+    methods:{
+      change(){
+        this.x += 1
+      },
+      aaa(){
+        console.log('我触发了这个');
+      }
+    }
   }
-</style>
+</script>
